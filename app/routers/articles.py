@@ -16,8 +16,8 @@ def create_article(article: schemas.Article, db: Session=Depends(database.get_db
 
     return new_article
 
-@router.get('/{id}', status_code=status.HTTP_200_OK)
-def get_article(id: int, response_model=schemas.ArticleOut, db: Session=Depends(database.get_db), user: int=Depends(oauth2.logged_user)):
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ArticleOut)
+def get_article(id: int, db: Session=Depends(database.get_db), user: int=Depends(oauth2.logged_user)):
 
     article=  db.query(models.Articles).filter(models.Articles.id == id).first()
 
